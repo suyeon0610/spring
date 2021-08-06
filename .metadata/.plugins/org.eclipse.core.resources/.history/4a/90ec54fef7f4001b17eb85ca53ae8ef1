@@ -1,0 +1,29 @@
+package com.spring.mvc.test;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+//@Controller
+@RestController //스프링4 이상부터 가능.
+@RequestMapping("/rest")
+public class RestControllerTest {
+	
+	/*
+	 @ResponseBody
+	 - 리턴 데이터를 viewResolver에게 전달하지 않고
+	 클라이언트에게 해당 데이터를 바로 응답하게 함
+	 - @RestController를 사용하면 모든 메서드에
+	  @ResponseBody를 붙인 결과와 같음
+	 */
+	
+	@GetMapping("/hello")
+//	@ResponseBody
+	public String hello() {
+		return "Hello World!!!";
+	}
+	
+
+}

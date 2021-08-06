@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=SpringDBAccess/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.db.repository{IScoreDAO.java[IScoreDAO" modifiers="513" timestamp="1627356920000"/>
+<typeInfo handle="=SpringWebMVCProject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.mvc.board.repository{IBoardMapper.java[IBoardMapper" modifiers="513" timestamp="1628153358000"/>
+<typeInfo handle="=SpringWebMVCProject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.mvc.board.service{IBoardService.java[IBoardService" modifiers="513" timestamp="1628153358000"/>
+</typeInfoHistroy>

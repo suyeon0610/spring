@@ -1,0 +1,51 @@
+package com.spring.mvc.board.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.spring.mvc.board.model.BoardVO;
+import com.spring.mvc.board.service.IBoardService;
+
+@Controller
+@RequestMapping("/board")
+public class BoardController {
+
+	@Autowired
+	IBoardService service;
+	
+	@GetMapping("/write")
+	public void write() {
+		System.out.println("/board/write: GET");
+	}
+	
+	@PostMapping("/write")
+	public String write(BoardVO article) {
+		System.out.println("/board/write: POST");
+		service.insert(article);
+		return "redirect:/bard/list";
+	}
+	
+	@GetMapping("/list")
+	public void list() {
+		System.out.println("/board/list: GET");
+		service.getArticleList();
+	}
+	
+	@GetMapping("/content")
+	public void content(@RequestParam("boardNo") int boardNo) {
+		System.out.println("/board/content: GET");
+		service.getArticle(boardNo);
+	}
+	
+	//게시글 수정 화면 요청
+	@GetMapping("/modify")
+	public void modify(@RequestParam("boardNo") int boardNo, Model model) {
+		System.out.println("/board/modify: GET");
+		model.addAttribute("article", service.getArticle(boardNo));
+	}
+}
