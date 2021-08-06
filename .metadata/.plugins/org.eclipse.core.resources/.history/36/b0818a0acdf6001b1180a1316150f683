@@ -32,7 +32,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/board/write"/>
-			<mapping path="/board/content/**"/>
+			<mapping path="/board/content"/>
 			<beans:bean class="com.spring.mvc.board.commons.interceptor.BoardInterceptor" />
 		</interceptor>
 	</interceptors>

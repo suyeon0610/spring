@@ -65,7 +65,7 @@ public class UserController {
 			if(!login.getPassword().equals(user.getPassword())) {
 				return "pwFail";
 			} else {
-				session.setAttribute("login", user);
+				session.setAttribute("login", login);
 				return "loginSuccess";
 			}
 		}

@@ -31,7 +31,7 @@ public class BoardInterceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		
-		System.out.println("게시판 인터셉터의 postHendle 호출");
+		System.out.println("게시턴 인터셉터의 postHendle 호출");
 		
 		System.out.println("모델 객체 내부: " + modelAndView.getModel());
 		
