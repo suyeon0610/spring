@@ -1,9 +1,11 @@
 package com.spring.mvc.user.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,25 +52,47 @@ public class UserController {
 	//로그인 처리
 	@PostMapping("/loginCheck")
 	public String loginCheck(@RequestBody UserVO login,
-							 HttpServletRequest request) {
+							 /* HttpServletRequest request */
+							 HttpSession session, HttpServletResponse response) {
 		System.out.println("/uesr/loginCheck: POST");
-		if(service.checkId(login.getAccount()) == 0) {
-			return "idFail";
-		} else {
+//		if(service.checkId(login.getAccount()) == 0) {
+//			return "idFail";
+//		} else {
 			
 			// 서버에서 세션 객체를 얻는 방법
 			// 1.HttpServletRequest 객체 사용.
-			HttpSession session = request.getSession();
+//			HttpSession session = request.getSession();
 			
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			UserVO user = service.selectOne(login.getAccount());
 			
-			if(!login.getPassword().equals(user.getPassword())) {
-				return "pwFail";
-			} else {
-				session.setAttribute("login", user);
-				return "loginSuccess";
+			if(user != null) {
+				if(encoder.matches(login.getPassword(), user.getPassword())) {
+					session.setAttribute("login", user);
+					
+					long limitTime = 60 * 60 * 24 * 90;
+					
+					//자동 로그인 체크 시 처리해야 할 내용
+					if(login.isAutoLogin()) { //자동 로그인 희망
+						//쿠키를 이용하여 자동 로그인 정보 저장
+						System.out.println("자동 로그인 쿠키 생성 중...");
+						//세션 아이디를 가지고 와서 쿠키에 저장(고유한 값 필요)
+						Cookie loginCookie = new Cookie("loginCookie", session.getId());
+						loginCookie.setPath("/"); //쿠키가 동작할 수 있는 유효한 URL
+						loginCookie.setMaxAge((int)limitTime); //초로 시간 받음
+						response.addCookie(loginCookie);
+					}
+				}
+				
 			}
-		}
+			
+//			if(!login.getPassword().equals(user.getPassword())) {
+//				return "pwFail";
+//			} else {
+//				session.setAttribute("login", user);
+//				return "loginSuccess";
+//			}
+//		}
 	}
 	
 	//로그아웃

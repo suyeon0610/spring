@@ -1,0 +1,28 @@
+package com.spring.mvc.board.commons.interceptor;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.util.WebUtils;
+
+public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
+
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		
+		System.out.println("자동 로그인 인터셉터 발동!");
+		
+		//1. 자동 로그인 쿠키가 있는지의 여부 확인
+		//-> loginCookie의 존재 여부 확인
+		//원하는 쿠키의 값을 한번에 꺼내올 수 있음.(request객체, 쿠키이름)
+		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+		
+		//true이면 컨트롤러로 요청이 들어가고, false면 요청 막음
+		//true를 쓴 이유는 자동 로그인 신청 여부와 상관없이 홈 화면은 누구나 봐야하기 때문
+		return true;
+	}
+	
+}

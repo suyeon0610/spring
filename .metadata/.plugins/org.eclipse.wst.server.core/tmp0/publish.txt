@@ -1,5 +1,5 @@
 #Tomcat publish data
-#Sat Aug 07 00:43:30 KST 2021
+#Mon Aug 09 22:03:34 KST 2021
 org.eclipse.jst.jee.server\:SpringDBAccess=C\:\\Users\\dbtnd\\Desktop\\java_sy\\apache-tomcat-9.0.46\\wtpwebapps\\SpringDBAccess
 org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\dbtnd\\.m2\\repository\\org\\springframework\\spring-web\\5.2.9.RELEASE\\spring-web-5.2.9.RELEASE.jar=C\:\\Users\\dbtnd\\Desktop\\java_sy\\apache-tomcat-9.0.46\\wtpwebapps\\SpringWebMVCProject\\WEB-INF\\lib\\spring-web-5.2.9.RELEASE.jar
 org.eclipse.jst.jee.server\:SpringWebMVCProject=C\:\\Users\\dbtnd\\Desktop\\java_sy\\apache-tomcat-9.0.46\\wtpwebapps\\SpringWebMVCProject

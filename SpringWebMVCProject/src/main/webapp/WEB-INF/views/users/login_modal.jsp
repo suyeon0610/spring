@@ -53,6 +53,12 @@
 								style="ime-mode: inactive; margin-bottom: 25px; height: 40px; border: 1px solid #d9d9de"
 								placeholder="최소 8자"></td>
 						</tr>
+						
+						<!-- 자동 로그인 체크박스 -->
+						<tr>
+							<td><input type="checkbox" id="auto-login" name="autoLogin">자동 로그인</td>
+						</tr>
+						
 						<tr>
 							<td style="padding-top: 10px; text-align: center">
 								<p>
@@ -427,9 +433,18 @@
 				const loginId = $('#signInId').val();
 				const loginPw = $('#signInPw').val();
 				
+				//자동 로그인 체크박스 체크 여부
+				//is()함수: 상태 여부를 판단하여 논리값을 리턴
+				const autoLogin = $('#auto-login').is(':checked');
+				
+				console.log('id: ' + loginId);
+				console.log('pw: ' + loginPw);
+				console.log('auto: ' + autoLogin);
+				
 				const login = {
 						"account" : loginId,
 						"password" : loginPw
+						"autoLogin" : autoLogin
 				};
 				
 				$.ajax({
@@ -452,12 +467,14 @@
 						}
 					},
 					error: function() {
-						alert('아이디, 비밀번호를 확인해 주세요.');
+						alert('통신 실패!');
 					}
 					
-				})
+				}); //end ajax(로그인 비동기)
+			} else{
+				alert('아이디와 비밀번호를 확인해 주세요.')
 			}
-		});
+		}); //로그인 클릭 이벤트 끝
 		
 		
 		

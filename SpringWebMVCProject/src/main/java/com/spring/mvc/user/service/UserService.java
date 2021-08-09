@@ -1,5 +1,7 @@
 package com.spring.mvc.user.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,18 @@ public class UserService implements IUserService {
 	@Override
 	public void delete(String account) {
 		mapper.delete(account);
+	}
+	
+	@Override
+	public UserVO getUserWithSessionId(String sessionId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public void keepLogin(String sessionId, Date limitDate, String account) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
