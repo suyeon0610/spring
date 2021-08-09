@@ -1,7 +1,5 @@
 package com.spring.mvc.user.controller;
 
-import java.util.Date;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -87,16 +85,9 @@ public class UserController {
 						//자동 로그인 유지 시간을 날짜 객체로 변환 (DB에 삽입하가 위해, 밀리초)
 						long expiredDate = System.currentTimeMillis() + (limitTime * 1000);
 						//Date 객체의 생성자에 매개값으로 밀리초의 시간을 전달하면 날짜 형태로 변경해 줌
-						Date limitDate = new  Date(expiredDate);
-						
-						service.keepLogin(session.getId(), limitDate, login.getAccount());
 					}
-					return "loginSuccess";
-				} else {
-					return "pwFail";
 				}
-			} else {
-				return "idFail";
+				
 			}
 			
 //			if(!login.getPassword().equals(user.getPassword())) {

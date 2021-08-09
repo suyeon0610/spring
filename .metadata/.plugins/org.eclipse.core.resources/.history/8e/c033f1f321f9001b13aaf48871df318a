@@ -43,14 +43,16 @@ public class UserService implements IUserService {
 		mapper.delete(account);
 	}
 	
+	@Override
+	public UserVO getUserWithSessionId(String sessionId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	@Override
 	public void keepLogin(String sessionId, Date limitDate, String account) {
-		mapper.keepLogin(sessionId, limitDate, account);
+		// TODO Auto-generated method stub
+		
 	}
 
-	@Override
-	public UserVO getUserWithSessionId(String sessionId) {
-		return mapper.getUserWithSessionId(sessionId);
-	}
 }

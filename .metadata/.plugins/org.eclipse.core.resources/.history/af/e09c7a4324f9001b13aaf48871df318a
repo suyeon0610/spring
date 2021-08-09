@@ -22,7 +22,7 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
 		System.out.println("자동 로그인 인터셉터 발동!");
 		
 		//1. 자동 로그인 쿠키가 있는지의 여부 확인
-		//-> loginCookie의 존재 여부 확인 (loginCookie에 세션 아이디 저장되어 있음)
+		//-> loginCookie의 존재 여부 확인
 		//원하는 쿠키의 값을 한번에 꺼내올 수 있음.(request객체, 쿠키이름)
 		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 		

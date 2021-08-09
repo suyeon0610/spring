@@ -88,15 +88,9 @@ public class UserController {
 						long expiredDate = System.currentTimeMillis() + (limitTime * 1000);
 						//Date 객체의 생성자에 매개값으로 밀리초의 시간을 전달하면 날짜 형태로 변경해 줌
 						Date limitDate = new  Date(expiredDate);
-						
-						service.keepLogin(session.getId(), limitDate, login.getAccount());
 					}
-					return "loginSuccess";
-				} else {
-					return "pwFail";
 				}
-			} else {
-				return "idFail";
+				
 			}
 			
 //			if(!login.getPassword().equals(user.getPassword())) {

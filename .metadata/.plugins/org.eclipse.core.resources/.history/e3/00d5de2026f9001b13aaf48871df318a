@@ -6,7 +6,6 @@
 	
 	<resultMap type="com.spring.mvc.user.model.UserVO" id="UserMap">
 		<result property="regDate" column="reg_date"/>
-		<result property="sessionId" column="session_id"/>
 	</resultMap>
 	
 	<insert id="register">
