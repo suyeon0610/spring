@@ -1,0 +1,27 @@
+package com.spring.myweb.util;
+
+public class PageCreater {
+	
+	private PageVO page;
+	private int beginPage;
+	private int endPage;
+	private boolean isPrev;
+	private boolean isNext;
+	private int pageBtn = 10; //한 화면에 보여질 페이지 버튼 수
+	
+	private void pageCalc(int page) {
+		
+		this.endPage = (int) (Math.ceil(page.getPageNum() / pageBtn) * pageBtn);
+		this.beginPage = endPage - pageBtn + 1;
+		this.isPrev = beginPage == 1? false : true;
+		
+	}
+	
+	public PageCreater(PageVO page) {
+		pageCalc(page);
+		
+		
+	}
+	
+
+}

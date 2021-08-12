@@ -1,0 +1,251 @@
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@ include file="../include/header.jsp"%>
+
+
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-md-9 write-wrap">
+				<div class="titlebox">
+					<p>상세보기</p>
+				</div>
+
+				<form id="article">
+					<div>
+						<label>DATE</label>
+						<p>${article.regdate }</p>
+					</div>
+					<div class="form-group">
+						<label>번호</label> <input class="form-control" name='bno'
+							value="${article.bno }" readonly>
+					</div>
+					<div class="form-group">
+						<label>작성자</label> <input class="form-control" name='writer'
+							value="${article.writer }" readonly>
+					</div>
+					<div class="form-group">
+						<label>제목</label> <input class="form-control" name='title'
+							value="${article.title }" readonly>
+					</div>
+
+					<div class="form-group">
+						<label>내용</label>
+						<textarea class="form-control" rows="10" name='content' readonly>${article.content }</textarea>
+					</div>
+
+					<button type="button" id="modify-btn" class="btn btn-primary">변경</button>
+					<button type="button" id="list-btn" class="btn btn-dark">목록</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section style="margin-top: 80px;">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-md-9 write-wrap">
+				<form class="reply-wrap">
+					<div class="reply-image">
+						<img src="../resources/img/profile.png">
+					</div>
+					<!--form-control은 부트스트랩의 클래스입니다-->
+					<div class="reply-content">
+						<textarea class="form-control" rows="3" id="reply"></textarea>
+						<div class="reply-group">
+							<div class="reply-input">
+								<input type="text" class="form-control" id="replyId" placeholder="이름"> 
+								<input type="password" class="form-control" id="replyPw" placeholder="비밀번호">
+							</div>
+
+							<button type="button" class="right btn btn-info" id="replyRegist">등록하기</button>
+						</div>
+
+					</div>
+				</form>
+
+				<!--여기에접근 반복-->
+				<div id="replyList">
+					<div class='reply-wrap'>
+						<div class='reply-image'>
+							<img src='../resources/img/profile.png'>
+						</div>
+						<div class='reply-content'>
+							<div class='reply-group'>
+								<strong class='left'>honggildong</strong> <small class='left'>2019/12/10</small>
+								<a href='#' class='right'><span
+									class='glyphicon glyphicon-pencil'></span>수정</a> <a href='#'
+									class='right'><span class='glyphicon glyphicon-remove'></span>삭제</a>
+							</div>
+							<p class='clearfix'>여기는 댓글영역</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- 모달 -->
+<div class="modal fade" id="replyModal" role="dialog">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="btn btn-default pull-right"
+					data-dismiss="modal">닫기</button>
+				<h4 class="modal-title">댓글수정</h4>
+			</div>
+			<div class="modal-body">
+				<!-- 수정폼 id값을 확인하세요-->
+				<div class="reply-content">
+					<textarea class="form-control" rows="4" id="modalReply"
+						placeholder="내용입력"></textarea>
+					<div class="reply-group">
+						<div class="reply-input">
+							<input type="hidden" id="modalRno"> <input
+								type="password" class="form-control" placeholder="비밀번호"
+								id="modalPw">
+						</div>
+						<button class="right btn btn-info" onclick="">수정하기</button>
+						<button class="right btn btn-info" id="modalDelBtn">삭제하기</button>
+					</div>
+				</div>
+				<!-- 수정폼끝 -->
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+	//jquery start
+	$(function() {
+		
+		//목록 버튼 클릭 이벤트
+		$('#list-btn').click(function() {
+			location.href = "<c:url value='/freeBoard/freeList?pageNum=${p.pageNum}&keyword=${p.keyword}&condition=${p.condition}' />";
+		});
+		
+		//수정 버튼 클릭 이벤트
+		$('#modify-btn').click(function() {
+			const article = $('#article');
+			
+			article.attr('action', '<c:url value="/freeBoard/freeModify?bno=${article.bno}" />')
+			article.attr('method', 'get');
+			article.submit();
+			
+		});
+		
+		//댓글 등록		
+		$('#replyRegist').click(function() {
+			
+			const reply = $('#reply').val();
+			const id = $('#replyId').val();
+			const pw = $('#replyPw').val();
+			const bno = '${article.bno}';
+			
+			if(reply === '') {
+				alert('내용을 입력해 주세요.');
+				return;
+			} else if(id === '') {
+				alert('아이디를 입력해 주세요.');
+				return;
+			} else if(pw === '') {
+				alert('비밀번호를 입력해 주세요.');
+				return;
+			} else {
+				
+				const reInfo = {
+						"reply" : reply,
+						"replyId" : id,
+						"replyPw" : pw,
+						"bno" : bno
+				};
+			
+			//댓글 등록 비동기 통신 시작
+				$.ajax({
+					type: "POST",
+					url: "<c:url value='/reply/replyRegist' />",
+					headers: {
+						"Content-Type" : "application/json"
+					},
+					dataType: "text", //서버로부터 어떤 형식으로 받을지 (생략 가능)
+					data: JSON.stringify(reInfo),
+					success: function(result) {
+						console.log("통신성공!");
+						if(result === 'success') {
+							console.log('댓글 등록 성공');
+							$('#reply').val('');
+							$('#replyId').val('');
+							$('#replyPw').val('');
+							getList(); //controller의 메서드 이름?
+						} else{
+							console.log('댓글 등록 실패');
+						}
+					},
+					error: function() {
+						console.log('통신 실패');
+					}
+					
+				}); //댓글 등록 비동기 통신 끝
+			} //else end
+			
+			//목록 요청
+			let steAdd = ""; //화면에 그려넣을 태그를 문자열의 형태로 추가할 변수
+			
+			
+			function getList() {
+				
+				const bno = '${article.bno}';
+				
+				//getJSON 함수를 통해 JSON형식의 파일을 읽어올 수 있음
+				//get방식의 요청을 통해 서버로부터 받은 JSON 데이터 로드
+				//$.JSON(url, [DATA], [통신 성공 여부])
+				
+				//댓글 목록 비동기 시작
+				$.getJSON(
+					"../reply/getList/" + bno,
+					function(data) {
+						console.log(data);
+						
+						for(let i=0; i<data.length; i++) {
+					         strAdd += "<div class='reply-wrap' style='display:none;'>";
+	                            strAdd += "<div class='reply-image'>";
+	                            strAdd += "<img src='../resources/img/profile.png'>";
+	                            strAdd += "</div>";
+	                            strAdd += "<div class='reply-content'>";
+	                            strAdd += "<div class='reply-group'>";
+	                            strAdd += "<strong class='left'>"+ data[i].replyId +"</strong>"; 
+	                     		strAdd += "<small class='left'>"+ timeStamp(data[i].replyDate) +"</small>"
+	                            strAdd += "<a href='"+ data[i].rno +"' class='right replyModify'><span class='glyphicon glyphicon-pencil'></span>수정</a>";
+	                            strAdd += "<a href='"+ data[i].rno +"' class='right replyDelete'><span class='glyphicon glyphicon-remove'></span>삭제</a>";
+	                            strAdd += "</div>";
+	                            strAdd += "<p class='clearfix'>"+ data[i].reply +"</p>";
+	                            strAdd += "</div>";
+	                           strAdd += "</div>";
+						}
+						
+						$('#replyList').html(strAdd); //replyList영역에 문자열 형식으로 모든 댓글 추가
+						$('.reply-wrap').fadeIn(500);
+						
+					} //getJSON 통신 성공 함수
+				); //end getJSON
+			
+			
+		} //댓글 목록 끝
+		
+		});
+		
+	}); //jquery end
+	
+	if("${msg}" === "modify") {
+		alert('게시글 수정이 정상 처리되었습니다.');
+	}
+
+</script>
+
+<%@ include file="../include/footer.jsp"%>

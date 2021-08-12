@@ -1,5 +1,0 @@
-package com.spring.mvc.board.commons;
-
-public class SearchVO {
-
-}

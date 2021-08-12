@@ -1,0 +1,5 @@
+package com.spring.myweb.freeboard.service;
+
+public interface IReplyService {
+
+}

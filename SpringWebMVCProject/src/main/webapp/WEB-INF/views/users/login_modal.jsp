@@ -443,7 +443,7 @@
 				
 				const login = {
 						"account" : loginId,
-						"password" : loginPw
+						"password" : loginPw,
 						"autoLogin" : autoLogin
 				};
 				

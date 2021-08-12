@@ -1,0 +1,14 @@
+package com.spring.myweb.freeboard.mapper;
+
+import java.util.List;
+
+import com.spring.myweb.command.ReplyVO;
+
+public interface IReplyMapper {
+
+	//댓글등록
+	void replyRegist(ReplyVO vo);
+	//목록 요청
+	List<ReplyVO>getList(int bno);
+	
+}

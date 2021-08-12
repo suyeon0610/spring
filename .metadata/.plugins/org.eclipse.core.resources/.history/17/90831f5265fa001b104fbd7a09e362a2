@@ -1,0 +1,9 @@
+package com.spring.myweb.util;
+
+public class PageVO {
+	
+	//사용자가 선택한 페이지 정보를 담을 변수
+	private int pageNum;
+	
+
+}

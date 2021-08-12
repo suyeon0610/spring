@@ -2,5 +2,6 @@
 <aop-reference-model>
 <aop-project name="SpringWebMVCProject"/>
 <aop-project name="SpringDBAccess"/>
+<aop-project name="MyWeb"/>
 <aop-project name="SpringWebBasic"/>
 </aop-reference-model>
