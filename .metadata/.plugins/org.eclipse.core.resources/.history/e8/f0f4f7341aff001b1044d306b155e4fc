@@ -1,0 +1,31 @@
+package com.spring.myweb.user.service;
+
+import com.spring.myweb.command.UserVO;
+
+public class UserService implements IUserService {
+
+	@Override
+	public int idCheck(String id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void join(UserVO vo) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public UserVO login(String id, String pw) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserVO getInfo(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

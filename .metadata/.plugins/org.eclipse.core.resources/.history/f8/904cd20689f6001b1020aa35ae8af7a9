@@ -1,5 +1,0 @@
-package com.spring.mvc.board.commons.interceptor;
-
-public class BoardInterceptor {
-
-}
